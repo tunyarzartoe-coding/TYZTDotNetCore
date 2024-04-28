@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZackDotNet.ConsoleApp
+namespace ZackDotNet.ConsoleApp.Services
 {
     internal static class ConnectionStrings
     {
@@ -15,7 +15,7 @@ namespace ZackDotNet.ConsoleApp
             InitialCatalog = "DotNet",
             UserID = "sa",
             Password = "sa@123",
-            TrustServerCertificate = true,  
+            TrustServerCertificate = true,
         };
 
     }

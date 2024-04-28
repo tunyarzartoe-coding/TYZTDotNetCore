@@ -6,18 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZackDotNet.ConsoleApp
+namespace ZackDotNet.ConsoleApp.AdoDotNetExamples
 {
     internal class AdoDotNetExample
     {
         private readonly SqlConnectionStringBuilder _sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-        {   
+        {
             DataSource = "ZACK",
             InitialCatalog = "DotNet",
             UserID = "sa",
             Password = "sa@123"
         };
-       public void Read()
+        public void Read()
         {
             SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
 
@@ -58,28 +58,28 @@ namespace ZackDotNet.ConsoleApp
             sqlDataAdapter.Fill(dt);
 
             connection.Close();
-            
-            if(dt.Rows.Count == 0)
+
+            if (dt.Rows.Count == 0)
             {
                 Console.WriteLine("No data Found!");
                 return;
             }
             DataRow dr = dt.Rows[0];
-            
-                Console.WriteLine("Blog Id =====>" + dr["BlogId"]);
-                Console.WriteLine("Blog Title  =====>" + dr["BlogTitle"]);
-                Console.WriteLine("Blog Author  =====>" + dr["BlogAuthor"]);
-                Console.WriteLine("Blog Content  =====>" + dr["BlogContent"]);
-                Console.WriteLine("------------------------------");
 
-            
+            Console.WriteLine("Blog Id =====>" + dr["BlogId"]);
+            Console.WriteLine("Blog Title  =====>" + dr["BlogTitle"]);
+            Console.WriteLine("Blog Author  =====>" + dr["BlogAuthor"]);
+            Console.WriteLine("Blog Content  =====>" + dr["BlogContent"]);
+            Console.WriteLine("------------------------------");
+
+
         }
         public void Create(string title, string author, string content)
         {
             SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
 
             connection.Open();
-            string query =@"INSERT INTO [dbo].[Tbl_Blog]
+            string query = @"INSERT INTO [dbo].[Tbl_Blog]
            ([BlogTitle]
            ,[BlogAuthor]
            ,[BlogContent])
@@ -95,7 +95,7 @@ namespace ZackDotNet.ConsoleApp
             Console.WriteLine(message);
 
         }
-        public void Update(int id,string title, string author, string content)
+        public void Update(int id, string title, string author, string content)
         {
             SqlConnection connection = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
 

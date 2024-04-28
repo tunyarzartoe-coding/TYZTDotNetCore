@@ -6,14 +6,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZackDotNet.ConsoleApp.Dtos;
+using ZackDotNet.ConsoleApp.Services;
 
-namespace ZackDotNet.ConsoleApp;
+namespace ZackDotNet.ConsoleApp.DapperExamples;
 
 internal class DapperExample
 {
     public void Run()
     {
-         Read();
+        Read();
         //Edit(1);
         //Edit(100);
         //Create("title 1", "author 1", "content 1");
@@ -23,8 +25,8 @@ internal class DapperExample
     }
     private void Read()
     {
-         using  IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-         List<BlogDto> lst = db.Query<BlogDto>("select * from tbl_blog").ToList();
+        using IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
+        List<BlogDto> lst = db.Query<BlogDto>("select * from tbl_blog").ToList();
 
         foreach (BlogDto item in lst)
         {
@@ -46,8 +48,8 @@ internal class DapperExample
     private void Edit(int id)
     {
         using IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-        var item = db.Query<BlogDto>("select * from tbl_blog where blogId = @BlogId", new BlogDto { BlogId = id}).FirstOrDefault();
-        if(item is null)
+        var item = db.Query<BlogDto>("select * from tbl_blog where blogId = @BlogId", new BlogDto { BlogId = id }).FirstOrDefault();
+        if (item is null)
         {
             Console.Write("No data found!");
             return;
@@ -60,7 +62,7 @@ internal class DapperExample
         Console.WriteLine("------------------------------");
 
     }
-    private void Create(string title,string author,string content) 
+    private void Create(string title, string author, string content)
     {
         var item = new BlogDto
         {
@@ -76,13 +78,13 @@ internal class DapperExample
      VALUES
            (@BlogTitle,@BlogAuthor,@BLogContent)";
         using IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-        int result = db.Execute(query,item);
+        int result = db.Execute(query, item);
 
         string message = result > 0 ? "Saving Success." : "Saving Failed.";
         Console.WriteLine(message);
     }
 
-    private void Update(int id,string title, string author, string content)
+    private void Update(int id, string title, string author, string content)
     {
         var item = new BlogDto
         {
@@ -91,7 +93,7 @@ internal class DapperExample
             BlogAuthor = author,
             BlogContent = content
         };
-             string query = @"UPDATE [dbo].[Tbl_Blog]
+        string query = @"UPDATE [dbo].[Tbl_Blog]
                   SET [BlogTitle] = @BlogTitle,
                       [BlogAuthor] = @BlogAuthor,
                       [BlogContent] = @BlogContent

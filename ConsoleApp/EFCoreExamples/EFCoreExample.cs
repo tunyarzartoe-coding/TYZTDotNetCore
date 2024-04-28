@@ -4,14 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZackDotNet.ConsoleApp.Dtos;
 
-namespace ZackDotNet.ConsoleApp
+namespace ZackDotNet.ConsoleApp.EFCoreExamples
 {
     internal class EFCoreExample
     {
         private readonly AppDbContent db = new AppDbContent();
 
-        public void Run() 
+        public void Run()
         {
             //Read();
             //Edit(13);
@@ -21,7 +22,7 @@ namespace ZackDotNet.ConsoleApp
         }
         private void Read()
         {
-            var lst =db.Blogs.ToList();
+            var lst = db.Blogs.ToList();
             foreach (BlogDto item in lst)
             {
                 Console.WriteLine(item.BlogId);
@@ -34,7 +35,7 @@ namespace ZackDotNet.ConsoleApp
         }
         private void Edit(int id)
         {
-           var item =  db.Blogs.FirstOrDefault(x => x.BlogId == id);
+            var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
             if (item is null)
             {
                 Console.Write("No data found!");
@@ -55,13 +56,13 @@ namespace ZackDotNet.ConsoleApp
                 BlogAuthor = author,
                 BlogContent = content
             };
-            db.Blogs.Add(item); 
+            db.Blogs.Add(item);
             int result = db.SaveChanges();
 
             string message = result > 0 ? "Saving Success." : "Saving Failed.";
             Console.WriteLine(message);
         }
-        private void Update(int id,string title, string author, string content)
+        private void Update(int id, string title, string author, string content)
         {
             var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
             if (item is null)
@@ -72,7 +73,7 @@ namespace ZackDotNet.ConsoleApp
             item.BlogTitle = title;
             item.BlogAuthor = author;
             item.BlogContent = content;
-        
+
             int result = db.SaveChanges();
 
             string message = result > 0 ? "Updating Success." : "Updating Failed.";
