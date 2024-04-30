@@ -25,8 +25,9 @@ internal class DapperExample
     }
     private void Read()
     {
+        string query = "select * from tbl_blog";
         using IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-        List<BlogDto> lst = db.Query<BlogDto>("select * from tbl_blog").ToList();
+        List<BlogDto> lst = db.Query<BlogDto>(query).ToList();
 
         foreach (BlogDto item in lst)
         {
