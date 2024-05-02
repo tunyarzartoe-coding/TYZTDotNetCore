@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.RestApi", "ZackDotNet.RestApi\ZackDotNet.RestApi.csproj", "{4615E74B-2CA2-470A-AFF8-F66A0A1BEDE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.RestApi", "ZackDotNet.RestApi\ZackDotNet.RestApi.csproj", "{4615E74B-2CA2-470A-AFF8-F66A0A1BEDE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.Shared", "ZackDotNet.Shared\ZackDotNet.Shared.csproj", "{4DDC57D4-F254-4493-8AF8-A579DE50308B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{4615E74B-2CA2-470A-AFF8-F66A0A1BEDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4615E74B-2CA2-470A-AFF8-F66A0A1BEDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4615E74B-2CA2-470A-AFF8-F66A0A1BEDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDC57D4-F254-4493-8AF8-A579DE50308B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDC57D4-F254-4493-8AF8-A579DE50308B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDC57D4-F254-4493-8AF8-A579DE50308B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDC57D4-F254-4493-8AF8-A579DE50308B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
