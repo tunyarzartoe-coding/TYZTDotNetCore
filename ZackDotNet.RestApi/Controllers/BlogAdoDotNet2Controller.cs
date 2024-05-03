@@ -6,25 +6,28 @@ using System.Data;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using ZackDotNet.RestApi.Models;
+using ZackDotNet.Shared;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ZackDotNet.RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogAdoDotNetController : ControllerBase
+    public class BlogAdoDotNet2Controller : ControllerBase
     {
+        private readonly AdoDotNetService _adoDotNetService = new AdoDotNetService(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
         [HttpGet]
         public IActionResult GetBlogs()
         {
             string query = "select * from tbl_blog";
-            SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
+            //SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
 
-            connection.Open();
-            SqlCommand cmd = new SqlCommand(query, connection);
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sqlDataAdapter.Fill(dt);
-            connection.Close();
+            //connection.Open();
+            //SqlCommand cmd = new SqlCommand(query, connection);
+            //SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            //DataTable dt = new DataTable();
+            //sqlDataAdapter.Fill(dt);
+            //connection.Close();
             //List<BlogModel> lst = new List<BlogModel>();
             //foreach (DataRow dr in dt.Rows)
             //{
@@ -42,20 +45,31 @@ namespace ZackDotNet.RestApi.Controllers
             //    BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
             //    BlogContent = Convert.ToString(dr["BlogContent"])
             //};
-            List<BlogModel> lst = dt.AsEnumerable().Select(dr => new BlogModel
-            {
-                BlogId = Convert.ToInt32(dr["BlogId"]),
-                BlogTitle = Convert.ToString(dr["BlogTitle"]),
-                BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
-                BlogContent = Convert.ToString(dr["BlogContent"])
-            }).ToList();
+            //List<BlogModel> lst = dt.AsEnumerable().Select(dr => new BlogModel
+            //{
+            //    BlogId = Convert.ToInt32(dr["BlogId"]),
+            //    BlogTitle = Convert.ToString(dr["BlogTitle"]),
+            //    BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
+            //    BlogContent = Convert.ToString(dr["BlogContent"])
+            //}).ToList();
+            var  lst = _adoDotNetService.Query<BlogModel>(query);
             return Ok(lst);
         }
 
         [HttpGet("{id}")]
         public IActionResult EditBlog(int id)
         {
+            //string query = "select * from tbl_blog where blogId = @BlogId";
+            //AdoDotNetParameter[] parameters = new AdoDotNetParameter[1];
+            //parameters[0] = new AdoDotNetParameter("@BlogId", id);
+            //var lst = _adoDotNetService.Query<BlogModel>(query, parameters);
+
+            //var item = _adoDotNetService.QueryFirstOrDefault<BlogModel>(query,
+            //    new AdoDotNetParameter("@BlogId", id) 
+            // );
+
             var item = FindById(id);
+
             if (item is null)
             {
                 return NotFound("No data found!");
@@ -72,16 +86,14 @@ namespace ZackDotNet.RestApi.Controllers
            ,[BlogContent])
      VALUES
            (@BlogTitle,@BlogAuthor,@BLogContent)";
-            SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
 
-            connection.Open();
-            SqlCommand cmd = new SqlCommand(query, connection);
+            int result = _adoDotNetService.Execute(query,
+                new AdoDotNetParameter("@BlogTitle", blog.BlogTitle),
+                new AdoDotNetParameter("@BlogAuthor", blog.BlogAuthor),
+                new AdoDotNetParameter("@BLogContent", blog.BlogContent)
 
-            cmd.Parameters.AddWithValue("@BlogTitle", blog.BlogTitle);
-            cmd.Parameters.AddWithValue("@BlogAuthor", blog.BlogAuthor);
-            cmd.Parameters.AddWithValue("@BLogContent", blog.BlogContent);
-            int result = cmd.ExecuteNonQuery();
-            connection.Close();
+                );
+
             string message = result > 0 ? "Saving Success." : "Saving Failed.";
             return Ok(message);
         }
@@ -89,7 +101,7 @@ namespace ZackDotNet.RestApi.Controllers
         public IActionResult UpdateBlog(int id ,BlogModel blog)
         {
             var item = FindById(id);
-            if (item is null)
+            if (item is null )
             {
                 return NotFound("No data found!");
             }
@@ -99,15 +111,13 @@ namespace ZackDotNet.RestApi.Controllers
                       [BlogAuthor] = @BlogAuthor,
                       [BlogContent] = @BlogContent
                        WHERE BlogId = @BlogId";
-            SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-            connection.Open();
-            SqlCommand cmd = new SqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@BlogId", id);
-            cmd.Parameters.AddWithValue("@BlogTitle", blog.BlogTitle);
-            cmd.Parameters.AddWithValue("@BlogAuthor", blog.BlogAuthor);
-            cmd.Parameters.AddWithValue("@BLogContent", blog.BlogContent);
-            int result = cmd.ExecuteNonQuery();
-            connection.Close();
+            int result = _adoDotNetService.Execute(query,
+                   new AdoDotNetParameter("@BlogId", blog.BlogId),
+                   new AdoDotNetParameter("@BlogTitle", blog.BlogTitle),
+                   new AdoDotNetParameter("@BlogAuthor", blog.BlogAuthor),
+                   new AdoDotNetParameter("@BLogContent", blog.BlogContent)
+
+                   );
             string message = result > 0 ? "Updating Success." : "Updating Failed.";
             return Ok(message);
         }
@@ -121,22 +131,22 @@ namespace ZackDotNet.RestApi.Controllers
             }
 
             List<string> updateFields = new List<string>();
-            List<SqlParameter> parameters = new List<SqlParameter>();
+            List<AdoDotNetParameter> parameters = new List<AdoDotNetParameter>();
 
             if (!string.IsNullOrEmpty(blog.BlogTitle))
             {
                 updateFields.Add("[BlogTitle] = @BlogTitle");
-                parameters.Add(new SqlParameter("@BlogTitle", SqlDbType.NVarChar) { Value = blog.BlogTitle });
+                parameters.Add(new AdoDotNetParameter("@BlogTitle", blog.BlogTitle));
             }
             if (!string.IsNullOrEmpty(blog.BlogAuthor))
             {
                 updateFields.Add("[BlogAuthor] = @BlogAuthor");
-                parameters.Add(new SqlParameter("@BlogAuthor", SqlDbType.NVarChar) { Value = blog.BlogAuthor });
+                parameters.Add(new AdoDotNetParameter("@BlogAuthor", blog.BlogAuthor));
             }
             if (!string.IsNullOrEmpty(blog.BlogContent))
             {
                 updateFields.Add("[BlogContent] = @BlogContent");
-                parameters.Add(new SqlParameter("@BlogContent", SqlDbType.NVarChar) { Value = blog.BlogContent });
+                parameters.Add(new AdoDotNetParameter("@BlogContent", blog.BlogContent));
             }
 
             if (updateFields.Count == 0)
@@ -150,21 +160,13 @@ namespace ZackDotNet.RestApi.Controllers
                       SET {updateString}
                       WHERE BlogId = @BlogId";
 
-            SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(query, connection);
-                foreach (var parameter in parameters)
-                {
-                    cmd.Parameters.Add(parameter);
-                }
-                cmd.Parameters.Add(new SqlParameter("@BlogId", SqlDbType.Int) { Value = id });
-                int result = cmd.ExecuteNonQuery();
-                connection.Close();
+            parameters.Add(new AdoDotNetParameter("@BlogId", id));
 
-                string message = result > 0 ? "Updating Success." : "Updating Failed.";
-                return Ok(message);
-            
+            int result = _adoDotNetService.Execute(query, parameters.ToArray());
+            string message = result > 0 ? "Updating Success." : "Updating Failed.";
+            return Ok(message);
         }
+
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBlog(int id)
@@ -188,14 +190,12 @@ namespace ZackDotNet.RestApi.Controllers
         private BlogModel? FindById(int id)
         {
             string query = "select * from tbl_blog where blogId = @BlogId";
-            SqlConnection connection = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
-
-            connection.Open();
-            var item = connection.QueryFirstOrDefault<BlogModel>(query, new { BlogId = id });
-            connection.Close();
+            var item = _adoDotNetService.QueryFirstOrDefault<BlogModel>(query,
+                new AdoDotNetParameter("@BlogId", id)
+             );
 
             return item;
-            
+
         }
     }
 }
