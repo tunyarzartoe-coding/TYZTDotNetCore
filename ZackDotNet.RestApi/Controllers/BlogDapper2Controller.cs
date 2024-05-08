@@ -28,8 +28,8 @@ namespace ZackDotNet.RestApi.Controllers
             {
                 return NotFound("No data found!");
             }
-           
-            return Ok(item); 
+
+            return Ok(item);
         }
         [HttpPost]
         public IActionResult CreateBlog(BlogModel blog)
@@ -43,7 +43,7 @@ namespace ZackDotNet.RestApi.Controllers
            (@BlogTitle,@BlogAuthor,@BLogContent)";
             //using IDbConnection db = new SqlConnection(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
             //int result = db.Execute(query, blog);
-            int result = _dapperService.Execute(query,blog);    
+            int result = _dapperService.Execute(query, blog);
             string message = result > 0 ? "Saving Success." : "Saving Failed.";
             return Ok(message);
         }
@@ -89,7 +89,7 @@ namespace ZackDotNet.RestApi.Controllers
             {
                 conditions += " [BlogContent] = @BlogContent, ";
             }
-            if(conditions.Length ==0)
+            if (conditions.Length == 0)
             {
                 return NotFound("No Data to Update!");
             }

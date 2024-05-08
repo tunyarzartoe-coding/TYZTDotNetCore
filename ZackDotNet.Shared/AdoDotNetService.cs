@@ -18,12 +18,12 @@ namespace ZackDotNet.Shared
             _connectionString = connectionString;
         }
 
-        public List<T>  Query<T>(string query,params AdoDotNetParameter[]? parameters )
+        public List<T> Query<T>(string query, params AdoDotNetParameter[]? parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             SqlCommand cmd = new SqlCommand(query, connection);
-            if( parameters is not null && parameters.Length > 0)
+            if (parameters is not null && parameters.Length > 0)
             {
                 //foreach(var item in parameters) 
                 //{ 
@@ -38,10 +38,10 @@ namespace ZackDotNet.Shared
             connection.Close();
 
             string json = JsonConvert.SerializeObject(dt);  //C# to JSON
-            List<T> lst  = JsonConvert.DeserializeObject<List<T>>(json);// json To C#
+            List<T> lst = JsonConvert.DeserializeObject<List<T>>(json);// json To C#
             return lst;
         }
-        public T  QueryFirstOrDefault<T>(string query, params AdoDotNetParameter[]? parameters)
+        public T QueryFirstOrDefault<T>(string query, params AdoDotNetParameter[]? parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -56,21 +56,21 @@ namespace ZackDotNet.Shared
                 var parameterArray = parameters.Select(item => new SqlParameter(item.Name, item.Value)).ToArray();
                 cmd.Parameters.AddRange(parameterArray);
             }
-            
+
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sqlDataAdapter.Fill(dt);
             connection.Close();
             if (dt.Rows.Count == 0)
             {
-                return default; 
+                return default;
             }
 
             string json = JsonConvert.SerializeObject(dt);  //C# to JSON
             List<T> lst = JsonConvert.DeserializeObject<List<T>>(json);// json To C#
             return lst[0];
         }
-        public int  Execute(string query, params AdoDotNetParameter[]? parameters)
+        public int Execute(string query, params AdoDotNetParameter[]? parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -85,17 +85,17 @@ namespace ZackDotNet.Shared
             return result;
         }
     }
-    
+
     public class AdoDotNetParameter
     {
         public AdoDotNetParameter() { }
-        public AdoDotNetParameter(string name,object value)
-        { 
+        public AdoDotNetParameter(string name, object value)
+        {
             Name = name;
             Value = value;
         }
         public string Name { get; set; }
 
-        public Object Value { get; set; }   
+        public Object Value { get; set; }
     }
 }

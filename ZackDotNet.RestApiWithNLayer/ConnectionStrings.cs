@@ -1,7 +1,7 @@
 ﻿
 using System.Data.SqlClient;
 
-namespace ZackDotNet.RestApi
+namespace ZackDotNet.RestApiWithNLayer
 {
     internal static class ConnectionStrings
     {

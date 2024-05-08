@@ -52,7 +52,7 @@ namespace ZackDotNet.RestApi.Controllers
             //    BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
             //    BlogContent = Convert.ToString(dr["BlogContent"])
             //}).ToList();
-            var  lst = _adoDotNetService.Query<BlogModel>(query);
+            var lst = _adoDotNetService.Query<BlogModel>(query);
             return Ok(lst);
         }
 
@@ -98,10 +98,10 @@ namespace ZackDotNet.RestApi.Controllers
             return Ok(message);
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateBlog(int id ,BlogModel blog)
+        public IActionResult UpdateBlog(int id, BlogModel blog)
         {
             var item = FindById(id);
-            if (item is null )
+            if (item is null)
             {
                 return NotFound("No data found!");
             }
