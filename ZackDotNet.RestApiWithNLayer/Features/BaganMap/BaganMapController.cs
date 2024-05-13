@@ -41,7 +41,7 @@ namespace ZackDotNet.RestApiWithNLayer.Features.BaganMap
             }
             else
             {
-                return NotFound();
+                return NotFound("No data Found!");
             }
         }
 
@@ -56,7 +56,7 @@ namespace ZackDotNet.RestApiWithNLayer.Features.BaganMap
             }
             else
             {
-                return NotFound();
+                return NotFound("No data Found!");
             }
         }
 
