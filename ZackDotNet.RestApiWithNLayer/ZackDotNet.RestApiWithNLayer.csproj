@@ -34,4 +34,10 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Features\MyanmarProverbs\MyanmarProverbsController.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
