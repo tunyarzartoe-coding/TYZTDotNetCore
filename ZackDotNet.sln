@@ -24,7 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.ConsoleAppRestCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.ConsoleAppHttpClientBaganMap", "ZackDotNet.ConsoleAppHttpClientBaganMap\ZackDotNet.ConsoleAppHttpClientBaganMap.csproj", "{BBF1F804-0D16-4F2F-8BEE-E2968B50EDB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.PizzaApi", "ZackDotNet.PizzaApi\ZackDotNet.PizzaApi.csproj", "{036C1A1F-AE68-4147-A8D7-D9562B98DAAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.PizzaApi", "ZackDotNet.PizzaApi\ZackDotNet.PizzaApi.csproj", "{036C1A1F-AE68-4147-A8D7-D9562B98DAAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.ConsoleAppRefitExamples", "ZackDotNet.ConsoleAppRefitExamples\ZackDotNet.ConsoleAppRefitExamples.csproj", "{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,10 @@ Global
 		{036C1A1F-AE68-4147-A8D7-D9562B98DAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036C1A1F-AE68-4147-A8D7-D9562B98DAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{036C1A1F-AE68-4147-A8D7-D9562B98DAAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
