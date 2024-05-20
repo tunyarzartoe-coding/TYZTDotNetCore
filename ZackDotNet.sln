@@ -28,9 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.PizzaApi", "Zack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.ConsoleAppRefitExamples", "ZackDotNet.ConsoleAppRefitExamples\ZackDotNet.ConsoleAppRefitExamples.csproj", "{438AF4B4-F3D8-415D-8B4D-C3E776DB86BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.WinFormsApp", "ZackDotNet.WinFormsApp\ZackDotNet.WinFormsApp.csproj", "{D9A0EBD4-84E0-4AA5-8A17-F54FBAAE2E44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZackDotNet.WinFormsApp", "ZackDotNet.WinFormsApp\ZackDotNet.WinFormsApp.csproj", "{D9A0EBD4-84E0-4AA5-8A17-F54FBAAE2E44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZackDotNet.BurmeseRecipesApi", "ZackDotNet.BurmeseRecipesApi\ZackDotNet.BurmeseRecipesApi.csproj", "{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.BurmeseRecipesApi", "ZackDotNet.BurmeseRecipesApi\TYZTDotNetCore.BurmeseRecipesApi.csproj", "{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
