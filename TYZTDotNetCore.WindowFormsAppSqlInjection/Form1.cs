@@ -4,7 +4,7 @@ namespace TYZTDotNetCore.WindowFormsApSqlInjection
 {
     public partial class Form1 : Form
     {
-        private readonly DapperService _dapperService ;
+        private readonly DapperService _dapperService;
         public Form1()
         {
             InitializeComponent();
