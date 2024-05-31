@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.WinFormsApp"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.BurmeseRecipesApi", "TYZTDotNetCore.BurmeseRecipesApi\TYZTDotNetCore.BurmeseRecipesApi.csproj", "{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.WindowFormsAppSqlInjection", "TYZTDotNetCore.WindowFormsAppSqlInjection\TYZTDotNetCore.WindowFormsAppSqlInjection.csproj", "{DE1E1603-89E3-443C-ADD5-CD8224FFCBCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A770C3C-9B4A-41D5-A0F2-02E9029893B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1E1603-89E3-443C-ADD5-CD8224FFCBCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1E1603-89E3-443C-ADD5-CD8224FFCBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1E1603-89E3-443C-ADD5-CD8224FFCBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1E1603-89E3-443C-ADD5-CD8224FFCBCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
