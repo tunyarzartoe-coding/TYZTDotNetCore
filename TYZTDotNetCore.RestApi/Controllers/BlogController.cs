@@ -11,12 +11,20 @@ namespace TYZTDotNetCore.RestApi.Controllers
     [ApiController]
     public class BLogController : ControllerBase
     {
+        //private readonly AppDbContext _context;
+
+        //public BLogController()
+        //{
+        //    _context = new AppDbContext();
+        //}
+
         private readonly AppDbContext _context;
 
-        public BLogController()
+        public BLogController(AppDbContext context)
         {
-            _context = new AppDbContext();
+            _context = context;
         }
+
         [HttpGet]
         public IActionResult Read()
         {

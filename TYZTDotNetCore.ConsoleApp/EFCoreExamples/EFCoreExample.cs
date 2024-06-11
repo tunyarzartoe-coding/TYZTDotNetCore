@@ -8,17 +8,24 @@ using ZackDotNet.ConsoleApp.Dtos;
 
 namespace ZackDotNet.ConsoleApp.EFCoreExamples
 {
-    internal class EFCoreExample
+    public class EFCoreExample
     {
-        private readonly AppDbContent db = new AppDbContent();
+        //private readonly AppDbContent db = new AppDbContent();
+
+        private readonly AppDbContent db;
+
+        public EFCoreExample(AppDbContent db)
+        {
+            this.db = db;
+        }
 
         public void Run()
         {
-            //Read();
+            Read();
             //Edit(13);
             //Create("title 100", "author 100", "content 100");
             //Update(15, "title updated", "author updated", "content updated");
-            Delete(12);
+            //Delete(12);
         }
         private void Read()
         {

@@ -9,12 +9,16 @@ using ZackDotNet.ConsoleApp.Services;
 
 namespace ZackDotNet.ConsoleApp.EFCoreExamples
 {
-    internal class AppDbContent : DbContext
+    public class AppDbContent : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContent(DbContextOptions options) : base(options)
         {
-            optionsBuilder.UseSqlServer(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
         }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(ConnectionStrings.SqlConnectionStringBuilder.ConnectionString);
+        //}
         public DbSet<BlogDto> Blogs { get; set; }
     }
 }
