@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.NLayer.DataA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MinimalApi", "TYZTDotNetCore.MinimalApi\TYZTDotNetCore.MinimalApi.csproj", "{15AE7832-39E5-4A76-9690-6064F1EE485A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.MvcApp", "TYZTDotNetCore.MvcApp\TYZTDotNetCore.MvcApp.csproj", "{34A2E033-51BB-4654-B5BD-6E75B3145B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MvcApp", "TYZTDotNetCore.MvcApp\TYZTDotNetCore.MvcApp.csproj", "{34A2E033-51BB-4654-B5BD-6E75B3145B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.MvcApp2", "TYZTDotNetCore.MvcApp2\TYZTDotNetCore.MvcApp2.csproj", "{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{34A2E033-51BB-4654-B5BD-6E75B3145B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A2E033-51BB-4654-B5BD-6E75B3145B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A2E033-51BB-4654-B5BD-6E75B3145B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

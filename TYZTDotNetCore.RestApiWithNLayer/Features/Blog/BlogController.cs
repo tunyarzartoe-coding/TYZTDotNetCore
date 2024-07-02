@@ -50,7 +50,7 @@ namespace ZackDotNet.RestApiWithNLayer.Features.Blog
 
             var result = _bl_Blog.UpdateBlog(id, blog);
 
-            string message = result > 0 ? "Updating Successful!" : "Updating Failed!";
+            string message = result > 0 ? "Updating Successful!" : "Student not Found!";
             return Ok(message);
         }
         [HttpPatch("{id}")]
