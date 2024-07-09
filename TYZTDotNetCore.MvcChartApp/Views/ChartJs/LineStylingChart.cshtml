@@ -1,0 +1,61 @@
+﻿@model LineStylingChartModel
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section scripts {
+    <script>
+        const _labels = @Html.Raw(JsonConvert.SerializeObject(Model.Labels));
+        const datasets = @Html.Raw(JsonConvert.SerializeObject(Model.DataSets));
+
+        const _data = {
+            labels: _labels,
+            datasets: datasets.map(ds => ({
+                label: ds.Label,
+                fill: ds.Fill,
+                backgroundColor: ds.BgColor,
+                borderColor: ds.BorderColor,
+                borderDash: ds.BorderDash,
+                data: ds.Data
+            }))
+        };
+
+        const config = {
+            type: 'line',
+            data: _data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart'
+                    },
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        }
+                    }
+                }
+            },
+        };
+
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, config);
+    </script>
+}
