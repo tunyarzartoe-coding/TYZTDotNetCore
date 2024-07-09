@@ -8,5 +8,9 @@ namespace TYZTDotNetCore.MvcChartApp.Controllers
         {
             return View();
         }
+        public IActionResult SplineChart()
+        {
+            return View();
+        }
     }
 }
