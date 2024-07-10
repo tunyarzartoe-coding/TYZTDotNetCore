@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MvcApp", "TY
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MvcApp2", "TYZTDotNetCore.MvcApp2\TYZTDotNetCore.MvcApp2.csproj", "{0E16451E-73BB-48D8-BDFC-0B9BCBAE1B04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.MvcChartApp", "TYZTDotNetCore.MvcChartApp\TYZTDotNetCore.MvcChartApp.csproj", "{4A7ADE4D-FA08-42D7-B5B2-4BF18552A660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MvcChartApp", "TYZTDotNetCore.MvcChartApp\TYZTDotNetCore.MvcChartApp.csproj", "{4A7ADE4D-FA08-42D7-B5B2-4BF18552A660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.ConsoleAppLogging", "TYZTDotNetCore.ConsoleAppLogging\TYZTDotNetCore.ConsoleAppLogging.csproj", "{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{4A7ADE4D-FA08-42D7-B5B2-4BF18552A660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A7ADE4D-FA08-42D7-B5B2-4BF18552A660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A7ADE4D-FA08-42D7-B5B2-4BF18552A660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
