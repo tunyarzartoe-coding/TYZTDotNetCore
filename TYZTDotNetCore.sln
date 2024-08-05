@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.MvcChartApp"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.ConsoleAppLogging", "TYZTDotNetCore.ConsoleAppLogging\TYZTDotNetCore.ConsoleAppLogging.csproj", "{A3996B68-9F4A-4100-86E9-7B0C3321D3F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.RealtimeChatApp", "TYZTDotNetCore.RealtimeChartApp\TYZTDotNetCore.RealtimeChatApp.csproj", "{42C1BDB8-42A6-41FD-A510-D4EC4890F352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.RealtimeChatApp", "TYZTDotNetCore.RealtimeChatApp\TYZTDotNetCore.RealtimeChatApp.csproj", "{42C1BDB8-42A6-41FD-A510-D4EC4890F352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
