@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.ConsoleAppLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.RealtimeChatApp", "TYZTDotNetCore.RealtimeChatApp\TYZTDotNetCore.RealtimeChatApp.csproj", "{42C1BDB8-42A6-41FD-A510-D4EC4890F352}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.RealtimeChartApp", "TYZTDotNetCore.RealtimeChartApp\TYZTDotNetCore.RealtimeChartApp.csproj", "{A0691205-880C-476A-A436-063DF057AC87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{42C1BDB8-42A6-41FD-A510-D4EC4890F352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42C1BDB8-42A6-41FD-A510-D4EC4890F352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42C1BDB8-42A6-41FD-A510-D4EC4890F352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0691205-880C-476A-A436-063DF057AC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0691205-880C-476A-A436-063DF057AC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0691205-880C-476A-A436-063DF057AC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0691205-880C-476A-A436-063DF057AC87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,496 @@
+﻿import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
+import { RawMaterial } from "./RawMaterial";
+import { GeneralInformation } from "./GeneralInformation";
+import { BoundarySetting } from "./BoundarySetting";
+import { Production } from "./Production";
+import { Transportation } from "./Transportation";
+import { Allocation } from "./Allocation";
+import {Summary } from './Summary';
+import { Usage } from "./Usage";
+import { Disposal } from "./Disposal";
+import { Result } from "./Result";
+import { Colors,invertDark, invertDarkSolid } from "../../Assets/Config/color.config";
+import { CreateProductCarbonFootPrintStepper } from "./CreateProductCarbonFootPrintStepper";
+import { MyButton,MyInput } from "../../Tools";
+import { useTranslation } from "react-i18next";
+import { FinalResult } from "./FinalResult";
+import { useEffect } from "react";
+
+
+
+export const AddDataForPCFForm = inject("store")(
+  observer((props) => {
+   const {theme}=props.store.common;
+   const { t } = useTranslation(window.location.pathname.replace("/",""));
+   const { selectedPageIndex,_handleCreate,_handleNext,_handleAddProductData,_handleProductDetails,rawMaterialDataCount,_handleProductDetailsCount,_handleBack,selectedAddPageIndex,_handleAddFormNext,_handleAddFormBack,_handleInputChange,PCFInputData,productionDataCount,transportationDataCount,usageDataCount,disposalDataCount,_handleCreateProductDetails,productDetials,productQuantity,_handleProductQuantity,_handleGetAllPCFUnits,_handleGetOneProduct,RawMaterialTotal,
+    ProductionTotal,
+    TransportationTotal,
+    UsageTotal,
+    DisposalTotal,
+    TotalResultEmission } = props.store.productCarbonFootprint;
+
+  console.log("details data",toJS(PCFInputData))
+
+  console.log("details data 2",toJS(PCFInputData.lifeCycleStages))
+
+  
+  //Raw Material
+  let TotalRawMaterial = productDetials?.rawMaterialData?.reduce((p,c)=>p+(c?.rawMaterialQuantity && c?.rawMaterialName ? (c?.rawMaterialQuantity*c?.rawMaterialName?.co2Factor) : 0),0)
+  let totalRawTransportation = 0;
+  productDetials?.rawMaterialData?.forEach(item => {
+    const quantity = parseFloat(item.rawMaterialQuantity ? item.rawMaterialQuantity : 0);
+    item?.rawMaterialTransportation?.forEach(transport => {
+        const distance = parseFloat(transport.TransportDistance ? transport.TransportDistance : 0);
+        totalRawTransportation += quantity * (transport?.TransportType?.co2Factor ?? 0) * distance;
+    });
+});
+let FinalTotalRawMaterial = (TotalRawMaterial+totalRawTransportation).toFixed(4)
+
+//Production
+let TotalProduction = productDetials?.productionData?.reduce((p,c)=>p+(c?.prodValue || c?.prodAllocation && c?.prodActivityName ? ((c?.prodValue ? c?.prodValue : 1) * (c?.prodAllocation ? c?.prodAllocation/100 : 1)*c?.prodActivityName?.co2Factor) : 0),0)
+let totalProdTransportation = 0;
+productDetials?.productionData?.forEach(item => {
+  const value = parseFloat(item.prodValue ? item.prodValue : 0);
+  item?.productionTransportation?.forEach(transport => {
+      const distance = parseFloat(transport.TransportDistance ? transport.TransportDistance : 0);
+      totalProdTransportation += value * (transport?.TransportType?.co2Factor ?? 0) * distance;
+  });
+});
+console.log("TotalProduction",TotalProduction)
+let FinalTotalProduction = (TotalProduction+totalProdTransportation).toFixed(4)
+
+//Transportation
+
+let TotalTransportation = productDetials?.transportationData?.reduce((p,c)=>p+(c?.transportValue && c?.transportTransportMode ? (c?.transportValue*c?.transportTransportMode?.co2Factor) : 0),0)
+// let totalTransTransportation = 0;
+// productDetials?.transportationData?.forEach(item => {
+//   const value = parseFloat(item.prodValue ? item.prodValue : 0);
+//   item?.transTransportation?.forEach(transport => {
+//       const distance = parseFloat(transport.TransportDistance ? transport.TransportDistance : 0);
+//       totalTransTransportation += value * (transport?.TransportType?.co2Factor ?? 0) * distance;
+//   });
+// });
+let FinalTotalTransportation = (TotalTransportation).toFixed(4)
+
+//usage
+let TotalUsage = productDetials?.usageData?.reduce((p,c)=>p+(c?.usageValue && c?.usageActivityName ? (c?.usageValue*c?.usageActivityName?.co2Factor) : 0),0)
+// let totalUsageTransportation = 0;
+// productDetials?.usageData?.forEach(item => {
+//   const value = parseFloat(item.prodValue ? item.prodValue : 0);
+//   item?.usageTransportation?.forEach(transport => {
+//       const distance = parseFloat(transport.TransportDistance ? transport.TransportDistance : 0);
+//       totalUsageTransportation += value * (transport?.TransportType?.co2Factor ?? 0) * distance;
+//   });
+// });
+let FinalTotalUsage = (TotalUsage).toFixed(4)
+
+//disposal
+let TotalDisposal = productDetials?.disposalData?.reduce((p,c)=>p+(c?.disposalValue && c?.disposalTreatment ? (c?.disposalValue*c?.disposalTreatment?.co2Factor) : 0),0)
+let totalDisposalTransportation = 0;
+productDetials?.disposalData?.forEach(item => {
+  const value = parseFloat(item.prodValue ? item.prodValue : 0);
+  item?.disposalTransportation?.forEach(transport => {
+      const distance = parseFloat(transport.TransportDistance ? transport.TransportDistance : 0);
+      totalDisposalTransportation += value * (transport?.TransportType?.co2Factor ?? 0) * distance;
+  });
+});
+let FinalTotalDisposal = (TotalDisposal+totalDisposalTransportation).toFixed(4)
+
+
+
+
+
+console.log("total raw material",TotalRawMaterial,toJS(productDetials),FinalTotalUsage)
+
+   useEffect(()=>{
+    _handleGetAllPCFUnits()
+    _handleGetOneProduct()
+   },[])
+
+
+
+   const stages = toJS(PCFInputData.lifeCycleStages);
+    const stageSet = new Set(stages);
+
+    let components = [];
+    let steps = [];
+
+    switch (true) {
+      case stageSet.has(1) && stageSet.size === 1:
+        components.push(<RawMaterial />);
+        steps.push(t("Raw Material"));
+        break;
+      case stageSet.has(2) && stageSet.size === 1:
+        components.push(<Production />);
+        steps.push(t("Production"));
+        break;
+      case stageSet.has(2) && stageSet.has(3) && stageSet.size === 2:
+        components.push(<Production />, <Transportation />);
+        steps.push(t("Production"), t("Transportation"));
+        break;
+      case stageSet.has(2) &&
+        stageSet.has(3) &&
+        stageSet.has(4) &&
+        stageSet.size === 3:
+        components.push(<Production />, <Transportation />, <Usage />);
+        steps.push(t("Production"), t("Transportation", t("Usage")));
+        break;
+      case stageSet.has(2) &&
+        stageSet.has(3) &&
+        stageSet.has(4) &&
+        stageSet.has(5) &&
+        stageSet.size === 4:
+        components.push(
+          <Production />,
+          <Transportation />,
+          <Usage />,
+          <Disposal />
+        );
+        steps.push(
+          t("Production"),
+          t("Transportation"),
+          t("Usage"),
+          t("Disposal")
+        );
+        break;
+      case stageSet.has(2) && stageSet.has(4) && stageSet.size === 2:
+        components.push(<Production />, <Usage />);
+        steps.push(t("Production"), t("Usage"));
+        break;
+      case stageSet.has(2) && stageSet.has(5) && stageSet.size === 2:
+        components.push(<Production />, <Disposal />);
+        steps.push(t("Production"), t("Disposal"));
+        break;
+      case stageSet.has(3) && stageSet.size === 1:
+        components.push(<Transportation />);
+        steps.push(t("Transportation"));
+        break;
+      case stageSet.has(3) && stageSet.has(4) && stageSet.size === 2:
+        components.push(<Transportation />, <Usage />);
+        steps.push(t("Transportation"), t("Usage"));
+        break;
+      case stageSet.has(3) && stageSet.has(5) && stageSet.size === 2:
+        components.push(<Transportation />, <Disposal />);
+        steps.push(t("Transportation"), t("Disposal"));
+        break;
+      case stageSet.has(3) &&
+        stageSet.has(4) &&
+        stageSet.has(5) &&
+        stageSet.size === 3:
+        components.push(<Transportation />, <Usage />, <Disposal />);
+        steps.push(t("Transportation"), t("Transportation"), t("Disposal"));
+        break;
+      case stageSet.has(4) && stageSet.size === 1:
+        components.push(<Usage />);
+        steps.push(t("Usage"));
+        break;
+      case stageSet.has(4) && stageSet.has(5) && stageSet.size === 2:
+        components.push(<Usage />, <Disposal />);
+        steps.push(t("Usage"), t("Disposal"));
+        break;
+      case stageSet.has(5) && stageSet.size === 1:
+        components.push(<Disposal />);
+        steps.push(t("Disposal"));
+        break;
+      case stageSet.has(1) && stageSet.has(2) && stageSet.size === 2:
+        components.push(<RawMaterial />, <Production />);
+        steps.push(t("Raw Material"), t("Production"));
+        break;
+      case stageSet.has(1) && stageSet.has(3) && stageSet.size === 2:
+        components.push(<RawMaterial />, <Transportation />);
+        steps.push(t("Raw Material"), t("Transportation"));
+        break;
+      case stageSet.has(1) && stageSet.has(4) && stageSet.size === 2:
+        components.push(<RawMaterial />, <Usage />);
+        steps.push(t("Raw Material"), t("Usage"));
+        break;
+      case stageSet.has(1) && stageSet.has(5) && stageSet.size === 2:
+        components.push(<RawMaterial />, <Disposal />);
+        steps.push(t("Raw Material"), t("Disposal"));
+        break;
+      case stageSet.has(1) &&
+        stageSet.has(2) &&
+        stageSet.has(3) &&
+        stageSet.size === 3:
+        components.push(<RawMaterial />, <Production />, <Transportation />);
+        steps.push(t("Raw Material"), t("Production"));
+        break;
+      case stageSet.has(1) &&
+        stageSet.has(2) &&
+        stageSet.has(3) &&
+        stageSet.has(4) &&
+        stageSet.size === 4:
+        components.push(
+          <RawMaterial />,
+          <Production />,
+          <Transportation />,
+          <Usage />
+        );
+        steps.push(t("Raw Material"), t("Production"));
+        break;
+      case stageSet.size === 5:
+        components.push(
+          <RawMaterial />,
+          <Production />,
+          <Transportation />,
+          <Usage />,
+          <Disposal />
+        );
+        steps.push(
+          t("Raw Material"),
+          t("Production"),
+          t("Transportation"),
+          t("Usage"),
+          t("Disposal")
+        );
+        break;
+      default:
+        if (stageSet.has(1)) {
+          components.push(<RawMaterial />);
+          steps.push(t("Raw Material"));
+        }
+        if (stageSet.has(2)) {
+          components.push(<Production />);
+          steps.push(t("Production"));
+        }
+        if (stageSet.has(3)) {
+          components.push(<Transportation />);
+          steps.push(t("Transportation"));
+        }
+        if (stageSet.has(4)) {
+          components.push(<Usage />);
+          steps.push(t("Usage"));
+        }
+        if (stageSet.has(5)) {
+          components.push(<Disposal />);
+          steps.push(t("Disposal"));
+        }
+    }
+
+    steps.push(t("Result"));
+
+    // if (components.length === 0) {
+    //   switch (selectedAddPageIndex) {
+    //     case 0:
+    //       components.push(<RawMaterial />);
+    //       break;
+    //     case 1:
+    //       components.push(<Production />);
+    //       break;
+    //     case 2:
+    //       components.push(<Transportation />);
+    //       break;
+    //     case 3:
+    //       components.push(<Usage />);
+    //       break;
+    //     case 4:
+    //       components.push(<Disposal />);
+    //       break;
+    //     case 5:
+    //       components.push(
+    //         <Result
+    //           TotalRawMaterial={FinalTotalRawMaterial}
+    //           TotalProduction={FinalTotalProduction}
+    //           TotalTransportation={FinalTotalTransportation}
+    //           TotalUsage={FinalTotalUsage}
+    //           TotalDisposal={FinalTotalDisposal}
+    //         />
+    //       );
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }
+
+    console.log("steps in add data pcfform ====>", steps)
+    return (
+      // <div style={{display:'flex',justifyContent:'center'}}>
+        <>
+        {
+            PCFInputData?.finalResult ? 
+            <div className="col-12" style={{margin:'15px 0px'}}><FinalResult/></div>
+            : <div className="col-lg-10 col-md-12 col-9" style={{marginBottom:'15px'}}>
+            <div style={{margin:'20px 0'}}>
+                  <CreateProductCarbonFootPrintStepper
+                    steps={steps}
+                    type="addCarbonForm"
+                  />
+                  {/* <CreateProductCarbonFootPrintStepper
+                    steps={[
+                      t("Raw Material"),
+                      t("Production"),
+                      t("Transportation"),
+                      t("Usage"),
+                      t("Disposal"),
+                      t("Result")
+                    ]}
+                    type="addCarbonForm"
+                  /> */}
+          </div>
+            <div style={{background:Colors[theme].PCFList3,borderRadius:'13px',
+            padding:'0px',
+            border:`1px solid ${Colors[theme].PCFBorderColor}`
+            }}>
+              {
+                selectedAddPageIndex == 5 ? <></> : 
+                <>
+            <div className="row  mb-0 mx-0" 
+                  style={{ 
+                    borderRadius: "13px 13px 0 0",
+                    background:Colors[theme].PCFList9,
+                    padding:'16px'
+                    }}>
+                    <div className="col-12" >
+                      <div className="row" style={{display:"flex",justifyContent:"space-between",alignItems:'center'}}>
+                        <div className="col-3" >
+                          <div style={{display:'flex',flexDirection:'column'}}>
+                                <span style={{fontSize:'24px',fontWeight:'bold',color:invertDarkSolid(theme)}}>{PCFInputData?.productName}</span>
+                                <span style={{fontSize:'12px',color:invertDark(theme)}}>{PCFInputData?.modelNumber}</span>
+  
+                          </div>
+                          
+                          </div>
+                        <div className="col-6">
+                          {
+                            selectedAddPageIndex == 0 ? <div className="row" style={{display:"flex",alignItems:'center'}}>
+                            <div className="col-1"></div>
+                            <div className="col-3" style={{fontSize:'14px',color:invertDark(theme)}}>
+                            <span style={{ color: "#ffc107" }} className="me-1">
+                              *
+                            </span>
+                              Product Quantity
+                            </div>
+                            <div className="col-7">
+                            <MyInput
+                          // disabled
+                          // label={t("Category")}
+                          type="number"
+                          required={true}
+                          id={"productQuantity"}
+                          placeHolder={"Enter Product Quantity"}
+                          value={productQuantity}
+                          onChange={(e)=>{_handleProductQuantity(e.target.value)}}
+                          onKeyDown={(e) => {
+                          if (['e', 'E','-'].includes(e.key)) {
+                            e.preventDefault();
+                          }
+                        }} 
+                        />
+                            </div>
+                            <div className="col-1"></div>
+  
+                          </div> : <></>
+                          }
+                          
+                        </div>
+                        <div className="col-3" >
+                          <div style={{display:'flex',flexDirection:'column'}}>
+                                
+                                <span style={{fontSize:'12px',color:invertDark(theme)}}>
+                                  {
+                                    selectedAddPageIndex == 0 ? 'Total Raw Material Emission' : selectedAddPageIndex == 1 ? 'Total Production Emission' : selectedAddPageIndex == 2 ? 'Total Transportation Emission' : 
+                                    selectedAddPageIndex == 3 ? 'Total Usage Emission' : 'Total Disposal Emission'
+                                  }
+                                  </span>
+                                <span style={{fontSize:'32px',fontWeight:'bold',color:invertDarkSolid(theme)}}>{
+                                  selectedAddPageIndex == 0 ? RawMaterialTotal : selectedAddPageIndex == 1 ? ProductionTotal : selectedAddPageIndex == 2 ? TransportationTotal : 
+                                    selectedAddPageIndex == 3 ? UsageTotal : DisposalTotal
+                                  } kgCO2e</span>
+  
+                          </div>
+                          
+                          </div>
+  
+                      </div>
+                    </div>
+              </div>
+                </>
+              }
+
+              {/* { 
+              selectedAddPageIndex == 0 ? <RawMaterial/> : selectedAddPageIndex == 1 ? <Production/> : selectedAddPageIndex == 2 ? <Transportation/> : 
+                selectedAddPageIndex == 3 ? <Usage/> :
+                selectedAddPageIndex == 4 ? <Disposal/> :
+                <Result TotalRawMaterial={FinalTotalRawMaterial} TotalProduction={FinalTotalProduction} TotalTransportation={FinalTotalTransportation} TotalUsage={FinalTotalUsage} TotalDisposal={FinalTotalDisposal}/>
+              } */}
+            
+              <hr style={{margin:0}}/>
+            
+            <div className="" style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'20px'}}>
+                        {
+                          selectedAddPageIndex == 0 ?  
+                          <MyButton
+                          // style={{ width: 170 }}
+                          text={"Add New Material"}
+                          customcolor={theme == "dark" ? Colors.dark.PCFList1 : Colors.light.onBoardColor}
+                          rightIcon={<i class="bi bi-plus"></i>}
+                          onClick={() => {
+                            _handleAddProductData('rawMaterialData')
+                            _handleProductDetailsCount('rawMaterialData',rawMaterialDataCount?.length,'add')
+                          }}
+                        />  :
+                        <div style={{display:'flex',gap:'10px',alignItems:'center'}}>
+                        
+                        {/* <MyButton
+                        style={{ width: 150 }}
+                        text={"Previous Step"}
+                        customcolor={Colors[theme].PCFList3}
+                        textColor={invertDarkSolid(theme)}
+                        leftIcon={<i className="bi bi-arrow-left" />}
+                        onClick={() => _handleAddFormBack(selectedAddPageIndex)}
+                      /> */}
+                      <div onClick={() => _handleAddFormBack(selectedAddPageIndex)} style={{color:invertDarkSolid(theme),cursor:'pointer'}}>
+                        <div style={{display:'flex',gap:'5px'}}>
+                          <i className="bi bi-arrow-left" />
+                          <div>Previous Step</div>
+                        </div>
+                      </div>
+                      {
+                        (selectedAddPageIndex !== 0 &&  selectedAddPageIndex !== 5) ? 
+                        <MyButton
+                          // style={{ width: 170 }}
+                          text={"Add New Activity"}
+                          style={{marginLeft:'16px'}}
+                          customcolor={theme == "dark" ? Colors.dark.PCFList1 : Colors.light.onBoardColor}
+                          rightIcon={<i class="bi bi-plus"></i>}
+                          onClick={() =>{ 
+                            _handleAddProductData(selectedAddPageIndex == 1 ? 'productionData' : selectedAddPageIndex == 2 ? 'transportationData' : selectedAddPageIndex == 3 ? 'usageData' : 'disposalData')
+                            _handleProductDetailsCount(selectedAddPageIndex == 1 ? 'productionData' : selectedAddPageIndex == 2 ? 'transportationData' : selectedAddPageIndex == 3 ? 'usageData' : 'disposalData',selectedAddPageIndex == 1 ? productionDataCount?.length : selectedAddPageIndex == 2 ? transportationDataCount?.length : selectedAddPageIndex == 3 ? usageDataCount?.length : disposalDataCount?.length,'add')}}
+
+                        /> : <></>
+                      }
+                      
+                      </div>
+                        }
+                          
+                        
+                      {
+                        selectedAddPageIndex == 5 ? 
+                        <MyButton
+                        // onClick={() => _handleInputChange(true,'finalResult')}
+                        onClick={()=>_handleCreateProductDetails(FinalTotalRawMaterial,FinalTotalProduction,FinalTotalTransportation,FinalTotalUsage,FinalTotalDisposal)}
+                        style={{ width: 100 }}
+                        // rightIcon={<i className="bi bi-arrow-right" />}
+                        text={"Confirm"}
+                        customcolor={theme == "dark" ? Colors.dark.PCFList1 : Colors.light.onBoardColor}
+  
+                      /> : <MyButton
+                      onClick={() => _handleAddFormNext(selectedAddPageIndex)}
+                      style={{ width: 100 }}
+                      rightIcon={<i className="bi bi-arrow-right" />}
+                      text={"Next"}
+                      customcolor={theme == "dark" ? Colors.dark.PCFList1 : Colors.light.onBoardColor}
+  
+                    />
+                      }            
+             </div>
+            </div>
+          </div>
+        }
+        
+        </>
+        // </div>
+    )
+  })
+)
