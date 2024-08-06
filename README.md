@@ -107,4 +107,4 @@ Product => [Server => Add Product (changes) => Server Client All] => Changes =>
   Scaffold-DbContext "Server=ZACK;Database=DotNet;User ID=sa;Password=sa@123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context AppDbContext -Tables Tbl_Blog
 
 
-dotnet ef dbcontext   Scaffold-DbContext "Server=ZACK;Database=DotNet;User ID=sa;Password=sa@123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context AppDbContext -Tables Tbl_Blog
+dotnet ef dbcontext scaffold "Server=ZACK;Database=DotNet;User ID=sa;Password=sa@123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c AppDbContext -t Tbl_PieChart -f
