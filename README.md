@@ -108,3 +108,9 @@ Product => [Server => Add Product (changes) => Server Client All] => Changes =>
 
 
 dotnet ef dbcontext scaffold "Server=ZACK;Database=DotNet;User ID=sa;Password=sa@123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c AppDbContext -t Tbl_PieChart -f
+
+Blazor
+
+1.Blazor Server  (Client + Server)
+2.Blazor Web Assembly (Client)
+3.Blazor Web Assembly + ASP.Net Core Web Api 
