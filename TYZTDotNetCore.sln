@@ -55,9 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.RealtimeChat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.RealtimeChartApp", "TYZTDotNetCore.RealtimeChartApp\TYZTDotNetCore.RealtimeChartApp.csproj", "{A0691205-880C-476A-A436-063DF057AC87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.ConsoleAppEFCore", "TYZTDotNetCore.ConsoleAppEFCore\TYZTDotNetCore.ConsoleAppEFCore.csproj", "{1ABFF065-8822-4C34-B008-2E3BA9588F32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.ConsoleAppEFCore", "TYZTDotNetCore.ConsoleAppEFCore\TYZTDotNetCore.ConsoleAppEFCore.csproj", "{1ABFF065-8822-4C34-B008-2E3BA9588F32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.ConsoleAppEFCore.Databases", "TYZTDotNetCore.ConsoleAppEFCore.Databases\TYZTDotNetCore.ConsoleAppEFCore.Databases.csproj", "{6ED687E5-AC03-46F3-ADDC-82F88F8F881E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.ConsoleAppEFCore.Databases", "TYZTDotNetCore.ConsoleAppEFCore.Databases\TYZTDotNetCore.ConsoleAppEFCore.Databases.csproj", "{6ED687E5-AC03-46F3-ADDC-82F88F8F881E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.MvcDesignApp", "TYZTDotNetCore.MvcDesignApp\TYZTDotNetCore.MvcDesignApp.csproj", "{FE997586-1B17-4616-97B4-CDEBD12506BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -165,6 +167,10 @@ Global
 		{6ED687E5-AC03-46F3-ADDC-82F88F8F881E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ED687E5-AC03-46F3-ADDC-82F88F8F881E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ED687E5-AC03-46F3-ADDC-82F88F8F881E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE997586-1B17-4616-97B4-CDEBD12506BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE997586-1B17-4616-97B4-CDEBD12506BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE997586-1B17-4616-97B4-CDEBD12506BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE997586-1B17-4616-97B4-CDEBD12506BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
