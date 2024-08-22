@@ -1,12 +1,13 @@
-﻿
-@page "/blog"
+﻿@page "/blog"
 @inject HttpClient httpClient
 
 <PageTitle>Blog List</PageTitle>
 
 <h1>Blog List</h1>
 
-@if(_blogs is not null)
+<NavLink href ="/blog/create" class="btn btn-success">New</NavLink>
+
+@if (_blogs is not null)
 {
     <table class="table table-responsive">
         <thead>
@@ -63,14 +64,6 @@
 
         }
         // return base.OnAfterRenderAsync(firstRender);
-    }
-
-    public class BlogModel
-    {
-        public int BlogId { get; set; }
-        public string? BlogTitle { get; set; }
-        public string? BlogAuthor { get; set; }
-        public string? BlogContent { get; set; }
     }
 
 }
