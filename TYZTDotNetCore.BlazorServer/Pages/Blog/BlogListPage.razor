@@ -11,7 +11,7 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th></th>
+                <th>Action</th>
                 <th>Id</th>
                 <th>Title</th>
                 <th>Author</th>
@@ -22,8 +22,13 @@
             @foreach (var item in _blogs)
             {
                 var editLink = $"/blog/edit/{item.BlogId}";
+
                 <tr>
+
                     <td>
+                        <NavLink href="@editLink" class="btn btn-outline-info">
+                            Edit
+                        </NavLink>
                     </td>
                     <td>@item.BlogId</td>
                     <td>@item.BlogTitle</td>
@@ -49,7 +54,7 @@
     {
         if (firstRender)
         {
-            _blogs = await db.Blogs.OrderByDescending(x=> x.BlogId).ToListAsync();
+            _blogs = await db.Blogs.OrderByDescending(x => x.BlogId).ToListAsync();
             StateHasChanged();
         }
     }
