@@ -1,0 +1,56 @@
+﻿@page "/blog"
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext db
+
+
+<h3>Blog List</h3>
+
+@if (_blogs is not null)
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in _blogs)
+            {
+                var editLink = $"/blog/edit/{item.BlogId}";
+                <tr>
+                    <td>
+                    </td>
+                    <td>@item.BlogId</td>
+                    <td>@item.BlogTitle</td>
+                    <td>@item.BlogAuthor</td>
+                    <td>@item.BlogContent</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<BlogModel>? _blogs;
+
+    // protected override asnyc Task OnInitializedAsync()
+    // {
+    //     _blogs = await db.Blogs.ToListAsync();
+
+    // }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _blogs = await db.Blogs.ToListAsync();
+            StateHasChanged();
+        }
+    }
+
+}
