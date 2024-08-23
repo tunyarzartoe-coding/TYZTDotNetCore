@@ -29,6 +29,7 @@
                         <NavLink href="@editLink" class="btn btn-outline-info">
                             Edit
                         </NavLink>
+                        <button type="button" @onclick="() => Delete(item.BlogId)" class="btn btn-outline-danger">Delete</button>
                     </td>
                     <td>@item.BlogId</td>
                     <td>@item.BlogTitle</td>
@@ -54,9 +55,33 @@
     {
         if (firstRender)
         {
-            _blogs = await db.Blogs.OrderByDescending(x => x.BlogId).ToListAsync();
-            StateHasChanged();
+            await List();
         }
+    }
+
+    private async Task List()
+    {
+        _blogs = await db.Blogs.OrderByDescending(x => x.BlogId).ToListAsync();
+        StateHasChanged();
+    }
+
+    private async Task Delete(int BlogId)
+    {
+        var confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure want to delete?");
+        if (!confirm) return;
+        var item = await db.Blogs
+        // .AsNoTracking()
+        .FirstOrDefaultAsync(x => x.BlogId == BlogId);
+        if (item is null)
+        {
+            await jsRuntime.InvokeVoidAsync("alert", "No data found!");
+            return;
+        }
+        db.Blogs.Remove(item);
+        var result = await db.SaveChangesAsync();
+        await jsRuntime.InvokeVoidAsync("alert", result > 0 ? "Deleting is Successful!" : "Deleting Failed");
+        await List();
+
     }
 
 }
