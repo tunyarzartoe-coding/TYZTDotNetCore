@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.BlazorWasm",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.BlazorWebAssembly2", "TYZTDotNetCore.BlazorWebAssembly2\TYZTDotNetCore.BlazorWebAssembly2.csproj", "{6715523F-A98A-4F28-A824-2BE47B38CB26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TYZTDotNetCore.BlazorServer", "TYZTDotNetCore.BlazorServer\TYZTDotNetCore.BlazorServer.csproj", "{93043E37-7055-410F-AC51-CD42093DCFB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TYZTDotNetCore.BlazorServer", "TYZTDotNetCore.BlazorServer\TYZTDotNetCore.BlazorServer.csproj", "{93043E37-7055-410F-AC51-CD42093DCFB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

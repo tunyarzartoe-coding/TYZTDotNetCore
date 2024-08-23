@@ -2,8 +2,9 @@
 @using Microsoft.EntityFrameworkCore
 @inject AppDbContext db
 
-
 <h3>Blog List</h3>
+
+<NavLink href="/blog/create" class="btn btn-outline-success">New</NavLink>
 
 @if (_blogs is not null)
 {
@@ -48,7 +49,7 @@
     {
         if (firstRender)
         {
-            _blogs = await db.Blogs.ToListAsync();
+            _blogs = await db.Blogs.OrderByDescending(x=> x.BlogId).ToListAsync();
             StateHasChanged();
         }
     }
